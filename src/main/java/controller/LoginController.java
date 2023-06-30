@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Account;
 import model.DAOAccount;
@@ -34,9 +35,13 @@ public class LoginController extends HttpServlet {
 		
 		if (request.getParameter("submit") != null && request.getParameter("submit").equals("Login")) {
 			DAOAccount daoaccount = new DAOAccount(request.getParameter("username"), request.getParameter("password"));
-			if (daoaccount.Auth())
+			if (daoaccount.Auth()) {
+				 HttpSession session=request.getSession();  
+	        	 session.setAttribute("user",daoaccount.getAccount().getUsername()); 
+	        	 session.setAttribute("pass",daoaccount.getAccount().getPassword());  
+	        
 				request.getRequestDispatcher("wellcome.jsp").forward(request, response);
-			else
+			}else
 				request.getRequestDispatcher("fail.jsp").forward(request, response);
 		} else {
 
