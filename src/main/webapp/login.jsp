@@ -6,7 +6,7 @@
 <body>
 <div class="container">
 		<div class="mt-3 p-3">
-			<form action="Hello" method="get">
+			<form action="LoginController" method="get">
 				Username : <input type="text" name="username" value="" /><br>
 				Password : <input type="text" name="password" value="" /><br> 
 				

@@ -32,10 +32,10 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		
 		
-		if (request.getParameter("submit") != null && request.getParameter("submit").endsWith("submit")) {
+		if (request.getParameter("submit") != null && request.getParameter("submit").equals("Login")) {
 			DAOAccount daoaccount = new DAOAccount(request.getParameter("username"), request.getParameter("password"));
 			if (daoaccount.Auth())
-				request.getRequestDispatcher("welcome.jsp").forward(request, response);
+				request.getRequestDispatcher("wellcome.jsp").forward(request, response);
 			else
 				request.getRequestDispatcher("fail.jsp").forward(request, response);
 		} else {
