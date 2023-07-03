@@ -1,0 +1,4 @@
+.form-control-border {
+        border-color: rgb(252, 128, 3);
+        box-shadow: 0 0 0 0.3rem rgba(252, 48, 3, 0.1);
+}

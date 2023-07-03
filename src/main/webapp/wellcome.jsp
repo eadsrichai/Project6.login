@@ -11,13 +11,16 @@
 </head>
 <body>
 
-<% String name=(String)session.getAttribute("user"); 
-if(name != null){
-out.print("welcome "+name);  
-}else {
-  response.sendRedirect("LoginController");
-}
+<% 
+	String n=(String)session.getAttribute("user"); 
+	String p =(String)session.getAttribute("pass");
+	if(n != null && p != null){
+		out.print("ยินดีต้อนรับคุณ " + n);  
+		}else {
+  		response.sendRedirect("LoginController");
+	}
 %>
+
 <a href="Logout">Logout</a>
 </body>
 </html>

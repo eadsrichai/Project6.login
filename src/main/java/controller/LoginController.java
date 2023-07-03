@@ -41,10 +41,14 @@ public class LoginController extends HttpServlet {
 	        	 session.setAttribute("pass",daoaccount.getAccount().getPassword());  
 	        
 				request.getRequestDispatcher("wellcome.jsp").forward(request, response);
-			}else
-				request.getRequestDispatcher("fail.jsp").forward(request, response);
+			}else {
+			 HttpSession session=request.getSession();  
+        	 session.setAttribute("user",daoaccount.getAccount().getUsername()); 
+        	 session.setAttribute("pass",daoaccount.getAccount().getPassword());  
+        	 request.getRequestDispatcher("login.jsp").forward(request, response);
+//        	 request.getRequestDispatcher("fail.jsp").forward(request, response);
+		}
 		} else {
-
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 	}
