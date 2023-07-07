@@ -34,6 +34,24 @@ public class LoginController extends HttpServlet {
 		
 		
 		if (request.getParameter("submit") != null && 
+			request.getParameter("submit").equals("Regis")) {
+				
+				Account account = new Account(
+						request.getParameter("username"), 
+						request.getParameter("password"));
+				DAOAccount daoaccount = new DAOAccount();
+				HttpSession session=request.getSession(); 
+			
+				if (daoaccount.AddAccount(account)) {
+					session.setAttribute("result","OK"); 
+					request.getRequestDispatcher("regis.jsp").forward(request, response);
+				}else {
+					session.setAttribute("result","Fail"); 
+					request.getRequestDispatcher("regis.jsp").forward(request, response);
+				}		
+		}
+		
+		if (request.getParameter("submit") != null && 
 			request.getParameter("submit").equals("Login")) {
 			
 			Account account = new Account(
