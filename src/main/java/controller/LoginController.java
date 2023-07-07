@@ -33,18 +33,26 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		
 		
-		if (request.getParameter("submit") != null && request.getParameter("submit").equals("Login")) {
-			DAOAccount daoaccount = new DAOAccount(request.getParameter("username"), request.getParameter("password"));
-			if (daoaccount.Auth()) {
+		if (request.getParameter("submit") != null && 
+			request.getParameter("submit").equals("Login")) {
+			
+			Account account = new Account(
+					request.getParameter("username"), 
+					request.getParameter("password"));
+			
+			DAOAccount daoaccount = new DAOAccount();
+			
+			
+			if (daoaccount.Auth(account)) {
 				 HttpSession session=request.getSession();  
-	        	 session.setAttribute("user",daoaccount.getAccount().getUsername()); 
-	        	 session.setAttribute("pass",daoaccount.getAccount().getPassword());  
+	        	 session.setAttribute("user",account.getUsername()); 
+	        	 session.setAttribute("pass",account.getPassword());  
 	        
 				request.getRequestDispatcher("wellcome.jsp").forward(request, response);
 			}else {
 			 HttpSession session=request.getSession();  
-        	 session.setAttribute("user",daoaccount.getAccount().getUsername()); 
-        	 session.setAttribute("pass",daoaccount.getAccount().getPassword());  
+			 session.setAttribute("user",account.getUsername()); 
+        	 session.setAttribute("pass",account.getPassword());    
         	 request.getRequestDispatcher("login.jsp").forward(request, response);
 //        	 request.getRequestDispatcher("fail.jsp").forward(request, response);
 		}
