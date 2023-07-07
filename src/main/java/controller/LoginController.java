@@ -44,14 +44,13 @@ public class LoginController extends HttpServlet {
 			
 				if (daoaccount.AddAccount(account)) {
 					session.setAttribute("result","OK"); 
-					request.getRequestDispatcher("regis.jsp").forward(request, response);
+					
 				}else {
-					session.setAttribute("result","Fail"); 
-					request.getRequestDispatcher("regis.jsp").forward(request, response);
-				}		
-		}
-		
-		if (request.getParameter("submit") != null && 
+					session.setAttribute("result","NO"); 
+					
+				}	
+				request.getRequestDispatcher("regis.jsp").forward(request, response);
+		} else if (request.getParameter("submit") != null && 
 			request.getParameter("submit").equals("Login")) {
 			
 			Account account = new Account(

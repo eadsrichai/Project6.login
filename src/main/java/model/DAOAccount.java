@@ -50,9 +50,32 @@ public class DAOAccount {
 		}
 		return false;
 	}
+	
+	public Boolean CheckAccount(Account account) {
+		PreparedStatement pStatement;
+		Boolean ans = false;
+		try {
+			String sql = "SELECT username FROM account WHERE username = ?";
+			pStatement = con.prepareStatement(sql);
 
+			pStatement.setString(1, account.getUsername());
+			
+
+			ResultSet resultSet = pStatement.executeQuery();
+			
+			if (resultSet.next()) {
+				ans = true;
+			}else {
+				ans = false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ans;
+	}
 	public Boolean AddAccount(Account account) {
-		if (!Auth(account)) {
+		Boolean ans = false;
+		if (!CheckAccount(account)) {
 			PreparedStatement pStatement;
 			try {
 				String sql = "INSERT INTO account(username,password) VALUES(?,?)";
@@ -63,10 +86,12 @@ public class DAOAccount {
 				System.out.println(account.getUsername());
 				int row = pStatement.executeUpdate();
 				System.out.println(row);
-				return true;
+				ans = true;
 			} catch (SQLException e) {	e.printStackTrace();	}
-		} 
-		return false;
+		}else { 
+		ans = false;
+		}
+		return ans;
 	}
 
 	public Account getAccount() {
