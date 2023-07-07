@@ -42,29 +42,20 @@ public class LoginController extends HttpServlet {
 			
 			DAOAccount daoaccount = new DAOAccount();
 			
+			HttpSession session=request.getSession();  
+       	 	session.setAttribute("user",account.getUsername()); 
+       	 	session.setAttribute("pass",account.getPassword());  
 			
 			if (daoaccount.Auth(account)) {
-				 HttpSession session=request.getSession();  
-	        	 session.setAttribute("user",account.getUsername()); 
-	        	 session.setAttribute("pass",account.getPassword());  
-	        
-				request.getRequestDispatcher("wellcome.jsp").forward(request, response);
+	        	 request.getRequestDispatcher("wellcome.jsp").forward(request, response);
 			}else {
-			 HttpSession session=request.getSession();  
-			 session.setAttribute("user",account.getUsername()); 
-        	 session.setAttribute("pass",account.getPassword());    
-        	 request.getRequestDispatcher("login.jsp").forward(request, response);
-//        	 request.getRequestDispatcher("fail.jsp").forward(request, response);
-		}
+	        	 request.getRequestDispatcher("login.jsp").forward(request, response);
+			}
 		} else {
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
